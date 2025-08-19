@@ -26,7 +26,7 @@ $$
 - Fractional occupations (integrated up to the Fermi level):
 
  
-  $$
+ $$
   f_\sigma = \frac{1}{N_{\text{atoms}}\times 5} \int_{-\infty}^{E_F} D_{d\sigma}(E)\, dE
   \quad (E_F = 0)
   $$
