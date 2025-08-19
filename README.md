@@ -9,8 +9,8 @@ A simple Python/Tkinter GUI to compute spin-resolved and effective d-band center
   - Spin-up d-band center ($\varepsilon_{d\uparrow}$)
   - Spin-down d-band center ($\varepsilon_{d\downarrow}$)
   - Effective d-band center ($\varepsilon_{\mathrm{eff}}$)
-  - Hammer–Nørskov d-band center
-  - Fractional occupations \(f_\uparrow\), \(f_\downarrow\)
+  - Hammer–Nørskov d-band center, $\varepsilon_{\mathrm{HN}}$
+  - Fractional occupations $f_\uparrow$, $f_\downarrow$
 
 ## Equations
 Let energies be aligned such that \(E_F = 0\), i.e., we use \(E - E_F\) internally.
