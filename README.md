@@ -19,7 +19,7 @@ Let energies be aligned such that \(E_F = 0\), i.e., we use \(E - E_F\) internal
   
 $$
   \varepsilon_{d\sigma} 
-  = \frac{\int_{-\infty}^{+\infty} E\, D_{d\sigma}(E - E_F)\, dE}
+  = \frac{\int_{-\infty}^{+\infty} E D_{d\sigma}(E - E_F)\, dE}
          {\int_{-\infty}^{+\infty} D_{d\sigma}(E - E_F)\, dE}
 $$
 
@@ -36,8 +36,7 @@ $$
 $$
   \varepsilon_{\mathrm{eff}} =
   \frac{f_\uparrow\,\varepsilon_{d\uparrow} + f_\downarrow\,\varepsilon_{d\downarrow}}
-       {f_\uparrow + f_\downarrow}
-  - (\varepsilon_{d\downarrow} - \varepsilon_{d\uparrow})
+       {f_\uparrow + f_\downarrow}-(\varepsilon_{d\downarrow} - \varepsilon_{d\uparrow})
     \frac{f_\uparrow - f_\downarrow}{f_\uparrow + f_\downarrow}
   $$
 
@@ -45,7 +44,7 @@ $$
 
 $$
   \varepsilon_{\mathrm{HN}} =
-  \frac{\int E\,\big(D_{d\uparrow}(E)+D_{d\downarrow}(E)\big)\, dE}
+  \frac{\int E \big(D_{d\uparrow}(E)+D_{d\downarrow}(E)\big)\, dE}
        {\int \big(D_{d\uparrow}(E)+D_{d\downarrow}(E)\big)\, dE}
   $$
 
