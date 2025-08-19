@@ -44,8 +44,8 @@ $$
 
 $$
   \varepsilon_{\mathrm{HN}} =
-  \frac{\int E \big(D_{d\uparrow}(E)+D_{d\downarrow}(E)\big)\, dE}
-       {\int \big(D_{d\uparrow}(E)+D_{d\downarrow}(E)\big)\, dE}
+  \frac{\int E \big(D_{d\uparrow}(E)+D_{d\downarrow}(E)\big) dE}
+       {\int \big(D_{d\uparrow}(E)+D_{d\downarrow}(E)\big) dE}
   $$
 
 
