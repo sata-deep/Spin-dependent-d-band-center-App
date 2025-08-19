@@ -33,7 +33,6 @@ $$
 
 - Effective d-band center (following the provided reference):
 
-
   $$
   \varepsilon_{\mathrm{eff}} =
   \frac{f_\uparrow\,\varepsilon_{d\uparrow} + f_\downarrow\,\varepsilon_{d\downarrow}}
