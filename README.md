@@ -6,9 +6,9 @@ A simple Python/Tkinter GUI to compute spin-resolved and effective d-band center
 - Load a `DOSCAR` (ISPIN=2, LORBIT=11).
 - Select atom range (1-based, inclusive).
 - Compute:
-  - Spin-up d-band center (\(\varepsilon_{d\uparrow}\))
-  - Spin-down d-band center (\(\varepsilon_{d\downarrow}\))
-  - Effective d-band center (\(\varepsilon_{\mathrm{eff}}\))
+  - Spin-up d-band center ($\varepsilon_{d\uparrow}$)
+  - Spin-down d-band center ($\varepsilon_{d\downarrow}$)
+  - Effective d-band center ($\varepsilon_{\mathrm{eff}}$)
   - Hammer–Nørskov d-band center
   - Fractional occupations \(f_\uparrow\), \(f_\downarrow\)
 
