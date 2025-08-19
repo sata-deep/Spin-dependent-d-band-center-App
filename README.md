@@ -65,7 +65,7 @@ $$
 
 ## Usage
 ```
-python3 tkapp.py
+python3 d-band.py
 ```
 - Click “Browse…” and select your `DOSCAR` (generated with `ISPIN=2`, `LORBIT=11`).
 - Enter the atom range (e.g., `17` to `24`).
