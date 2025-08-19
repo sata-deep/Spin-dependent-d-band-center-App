@@ -1,6 +1,6 @@
 # Spin Dependent d-band Center (Tkinter App)
 
-A simple Python/Tkinter GUI to compute spin-resolved and effective d-band centers directly from a VASP `DOSCAR` (ISPIN=2, LORBIT=11). No Fortran dependency — all parsing and integration are in Python.
+A simple Python/Tkinter GUI to compute spin-resolved and effective d-band centers directly from a VASP `DOSCAR` (ISPIN=2, LORBIT=11). 
 
 ## Features
 - Load a `DOSCAR` (ISPIN=2, LORBIT=11).
