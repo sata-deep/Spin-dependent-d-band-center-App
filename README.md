@@ -70,6 +70,9 @@ python3 d-band.py
 - Click “Browse…” and select your `DOSCAR` (generated with `ISPIN=2`, `LORBIT=11`).
 - Enter the atom range (e.g., `17` to `24`).
 - Click “Compute”.
+- Once executed the window will look like the following:
+<img width="872" height="889" alt="image" src="https://github.com/user-attachments/assets/10e663de-2404-43e4-a107-549ae1cfeeab" />
+
 
 ## Notes
 - The app shifts energies so that \(E_F=0\). Integrals for \(f_\sigma\) run from the grid minimum to 0; centers use the full grid range.
