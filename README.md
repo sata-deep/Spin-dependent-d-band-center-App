@@ -19,15 +19,15 @@ Let energies be aligned such that \(E_F = 0\), i.e., we use \(E - E_F\) internal
   
 $$
   \varepsilon_{d\sigma} 
-  = \frac{\int_{-\infty}^{+\infty} E D_{d\sigma}(E - E_F)\, dE}
-         {\int_{-\infty}^{+\infty} D_{d\sigma}(E - E_F)\, dE}
+  = \frac{\int_{-\infty}^{+\infty} E D_{d\sigma}(E - E_F) dE}
+         {\int_{-\infty}^{+\infty} D_{d\sigma}(E - E_F) dE}
 $$
 
 - Fractional occupations (integrated up to the Fermi level):
 
  
  $$
-  f_\sigma = \frac{1}{N_{\text{atoms}}\times 5} \int_{-\infty}^{E_F} D_{d\sigma}(E)\, dE
+  f_\sigma = \frac{1}{N_{\text{atoms}}\times 5} \int_{-\infty}^{E_F} D_{d\sigma}(E) dE
   \quad (E_F = 0)
   $$
 
@@ -35,7 +35,7 @@ $$
 
 $$
   \varepsilon_{\mathrm{eff}} =
-  \frac{f_\uparrow\,\varepsilon_{d\uparrow} + f_\downarrow\,\varepsilon_{d\downarrow}}
+  \frac{f_\uparrow\varepsilon_{d\uparrow} + f_\downarrow \varepsilon_{d\downarrow}}
        {f_\uparrow + f_\downarrow}-(\varepsilon_{d\downarrow} - \varepsilon_{d\uparrow})
     \frac{f_\uparrow - f_\downarrow}{f_\uparrow + f_\downarrow}
   $$
