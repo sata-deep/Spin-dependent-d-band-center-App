@@ -16,6 +16,7 @@ A simple Python/Tkinter GUI to compute spin-resolved and effective d-band center
 Let energies be aligned such that \(E_F = 0\), i.e., we use \(E - E_F\) internally.
 
 - Spin-resolved d-band centers (integrated over the full energy grid):
+  
 $$
   \varepsilon_{d\sigma} 
   = \frac{\int_{-\infty}^{+\infty} E\, D_{d\sigma}(E - E_F)\, dE}
