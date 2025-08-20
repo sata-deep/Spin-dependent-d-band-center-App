@@ -63,14 +63,15 @@ $$
 
 ## For ubuntu
 - Just type in your terminal:
-  sudo apt update
+  
+  **sudo apt update**
   
   **pip install --upgrade Spin-dependent-d-band-center**
-- Then in bash:
+- Then in bash type:
   
   **d-band-satadeep**
   
-  will launch the application
+ --> This  will launch the application (see the pic below)
 
 ## Usage
 ```
