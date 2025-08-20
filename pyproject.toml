@@ -16,3 +16,5 @@ authors = [
 dependencies = [
   # add e.g. "numpy>=1.25"
 ]
+[tool.setuptools.packages.find]
+where = ["src"]
