@@ -3,7 +3,7 @@ name: Publish to PyPI (Trusted Publishing)
 on:
   push:
     tags:
-      - "v1.0.0"          # runs on tags like v1.0.0, v1.0.1, ...
+      - "v*"          # runs on tags like v1.0.0, v1.0.1, ...
 
 permissions:
   contents: read
