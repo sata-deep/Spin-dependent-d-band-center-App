@@ -1,22 +1,37 @@
-[build-system]
-requires = ["setuptools>=61.0", "wheel"]
-build-backend = "setuptools.build_meta"
+name: Publish to PyPI (Trusted Publishing)
 
-[project]
-# Must exactly match the name you registered in PyPI "Publishing"
-name = "Spin-dependent-d-band-center"
-version = "1.0.0"
-description = "Package for spin-dependent d-band center app"
-readme = "README.md"
-requires-python = ">=3.9"
-license = { text = "MIT" }
-authors = [
-  { name = "Satadeep", email = "your.email@example.com" }
-]
+on:
+  push:
+    tags:
+      - "v1.0.0"          # runs on tags like v1.0.0, v1.0.1, ...
 
-# Add dependencies here if needed, for example:
-# dependencies = ["numpy>=1.25"]
+permissions:
+  contents: read
+  id-token: write      # REQUIRED for OIDC
 
-[tool.setuptools.packages.find]
-where = ["src"]
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    environment: pypi
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install build backend
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade build setuptools wheel
+
+      - name: Build sdist and wheel
+        run: python -m build
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          verbose: true
+
 
