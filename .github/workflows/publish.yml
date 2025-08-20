@@ -1,4 +1,4 @@
-name: Publish to PyPI (Trusted Publishing)
+name: Spin-dependent-d-band-center (Trusted Publishing)
 
 on:
   push:
