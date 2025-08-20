@@ -364,6 +364,11 @@ class DBandApp(tk.Tk):
             self._set_status("Failed.")
 
 
-if __name__ == "__main__":
+def main():
+    """Entry point for console script d-band-satadeep."""
     app = DBandApp()
     app.mainloop()
+
+if __name__ == "__main__":
+    main()
+
