@@ -4,17 +4,17 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "Spin-dependent-d-band-center"   # MUST match PyPI project name
-version = "1.0.0"
+name = "Spin-dependent-d-band-center"   # must match PyPI project name
+version = "1.0.0"                       # NO leading 'v' here (PEP 440)
 description = "Package for spin-dependent d-band center app"
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }
-authors = [
-  { name = "Satadeep Bhattacharjee", email = "satadeep24@gmail.com" }
-]
-dependencies = [
-  # add e.g. "numpy>=1.25"
-]
+authors = [{ name = "Satadeep" }]
+
+# Put real runtime deps here (requirements.txt is not read by setuptools)
+# dependencies = ["numpy>=1.25"]
+
 [tool.setuptools.packages.find]
 where = ["src"]
+
