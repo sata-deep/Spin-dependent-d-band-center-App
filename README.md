@@ -64,6 +64,7 @@ $$
 ## For ubuntu
 - Just type in your terminal:
   sudo apt update
+  
   **pip install --upgrade Spin-dependent-d-band-center**
 - Then in bash:
   
