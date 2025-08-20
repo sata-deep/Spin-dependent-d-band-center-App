@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 # Must exactly match the name you registered in PyPI "Publishing"
 name = "Spin-dependent-d-band-center"
-version = "0.1.0"
+version = "1.0.0"
 description = "Package for spin-dependent d-band center app"
 readme = "README.md"
 requires-python = ">=3.9"
