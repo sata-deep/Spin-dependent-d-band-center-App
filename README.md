@@ -78,7 +78,7 @@ $$
 python3 d-band.py
 ```
 - Click “Browse…” and select your `DOSCAR` (generated with `ISPIN=2`, `LORBIT=11`).
-- Enter the atom range (e.g., `17` to `24`).
+- Enter the atom ranges (e.g., 3-5,8-7,22-25 etc).
 - Click “Compute”.
 - Once executed the window will look like the following:
 <img width="907" height="795" alt="image" src="https://github.com/user-attachments/assets/5ad4dd97-c52c-455b-ab5c-ef17da6a979d" />
