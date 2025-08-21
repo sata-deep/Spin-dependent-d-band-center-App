@@ -81,7 +81,8 @@ python3 d-band.py
 - Enter the atom range (e.g., `17` to `24`).
 - Click “Compute”.
 - Once executed the window will look like the following:
-<img width="872" height="889" alt="image" src="https://github.com/user-attachments/assets/10e663de-2404-43e4-a107-549ae1cfeeab" />
+<img width="907" height="795" alt="image" src="https://github.com/user-attachments/assets/5ad4dd97-c52c-455b-ab5c-ef17da6a979d" />
+
 
 
 ## Notes
