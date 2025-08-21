@@ -28,7 +28,6 @@ $$
  
  $$
   f_\sigma = \frac{1}{N_{\text{atoms}}\times 5} \int_{-\infty}^{E_F} D_{d\sigma}(E) dE
-  \quad (E_F = 0)
   $$
 
 - Effective d-band center (**Bhattacharjee, S.**, Waghmare, U. & Lee, SC. _An improved d-band model of the catalytic activity of magnetic transition metal surfaces_. Sci Rep 6, 35916 (2016). https://doi.org/10.1038/srep35916):
