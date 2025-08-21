@@ -73,7 +73,7 @@ $$
   
  --> This  will launch the application (see the pic below)
 
-## Usage
+## Usage: If you don't want to use pip install
 ```
 python3 d-band.py
 ```
