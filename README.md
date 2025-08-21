@@ -4,7 +4,7 @@ A simple Python/Tkinter GUI to compute spin-resolved and effective d-band center
 
 ## Features
 - Load a `DOSCAR` (ISPIN=2, LORBIT=11).
-- Select atom range (1-based, inclusive).
+- Select atom range (Group of atoms using comma, such as 2-5,7-8,.. etc)
 - Compute:
   - Spin-up d-band center ($\varepsilon_{d\uparrow}$)
   - Spin-down d-band center ($\varepsilon_{d\downarrow}$)
