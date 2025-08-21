@@ -1,7 +1,8 @@
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 from dataclasses import dataclass
-from typing import Optional, Tuple
+from typing import Optional, Tuple, List, Sequence
+import os
 
 import math
 
@@ -207,13 +208,77 @@ def compute_d_band_centers(dos: DOSData, atom_range: Tuple[int, int]) -> Tuple[f
     return momu, momd, effective, hn_center, fup, fdn
 
 
+def compute_d_band_centers_for_indices(
+    dos: DOSData, atom_indices_1based: Sequence[int]
+) -> Tuple[float, float, float, float, float, float]:
+    """Same as compute_d_band_centers but for an arbitrary list of 1-based indices.
+
+    Duplicates are ignored. Out-of-range indices raise ValueError.
+    """
+    if not atom_indices_1based:
+        raise ValueError("Empty atom selection.")
+    uniq = sorted(set(atom_indices_1based))
+    if uniq[0] < 1 or uniq[-1] > dos.natom:
+        raise ValueError(f"Atom indices must be within 1..{dos.natom}.")
+
+    NE = dos.ne
+    order = sorted(range(NE), key=lambda i: dos.energies[i])
+    e = [dos.energies[i] for i in order]
+    dosu = [0.0] * NE
+    dosd = [0.0] * NE
+    for a1 in uniq:
+        up = dos.d_up[a1 - 1]
+        dn = dos.d_dn[a1 - 1]
+        for j, i in enumerate(order):
+            dosu[j] += up[i]
+            dosd[j] += dn[i]
+
+    e_min = e[0]
+    e_max_for_occ = 0.0
+    e_max_full = e[-1]
+
+    nat = len(uniq)
+    denom_states = nat * 5.0
+
+    int_dosu = trapz_integral(e, dosu, e_min, e_max_for_occ)
+    int_dosd = trapz_integral(e, dosd, e_min, e_max_for_occ)
+    fup = abs(int_dosu / denom_states)
+    fdn = abs(int_dosd / denom_states)
+
+    e_dosu = [e[i] * dosu[i] for i in range(NE)]
+    e_dosd = [e[i] * dosd[i] for i in range(NE)]
+    num_up = trapz_integral(e, e_dosu, e_min, e_max_full)
+    den_up = trapz_integral(e, dosu, e_min, e_max_full)
+    num_dn = trapz_integral(e, e_dosd, e_min, e_max_full)
+    den_dn = trapz_integral(e, dosd, e_min, e_max_full)
+    momu = num_up / den_up if den_up and not math.isnan(den_up) else float('nan')
+    momd = num_dn / den_dn if den_dn and not math.isnan(den_dn) else float('nan')
+
+    denom_f = (fup + fdn)
+    if denom_f == 0:
+        effective = float('nan')
+    else:
+        effective = ((fup * momu + fdn * momd) / denom_f) - ((momd - momu) * ((fup - fdn) / denom_f))
+
+    dos_sum = [dosu[i] + dosd[i] for i in range(NE)]
+    e_dos_sum = [e[i] * dos_sum[i] for i in range(NE)]
+    hn_num = trapz_integral(e, e_dos_sum, e_min, e_max_full)
+    hn_den = trapz_integral(e, dos_sum, e_min, e_max_full)
+    hn_center = hn_num / hn_den if hn_den != 0 else float('nan')
+
+    return momu, momd, effective, hn_center, fup, fdn
+
+
 class DBandApp(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Spin dependent d-band center calculation")
         self.geometry("680x420")
+        # Set window icon (best-effort)
         try:
-            self.iconphoto(False, tk.PhotoImage(file="logo.png"))
+            here = os.path.dirname(os.path.abspath(__file__))
+            icon_path = os.path.join(here, "logo.png")
+            self.iconphoto(False, tk.PhotoImage(file=icon_path))
         except Exception:
             pass
 
@@ -241,14 +306,11 @@ class DBandApp(tk.Tk):
         ttk.Button(file_fr, text="Load", command=self._load_file).pack(side=tk.LEFT, padx=(4, 8), pady=8)
 
         # Atom range
-        atoms_fr = ttk.LabelFrame(self, text="Atoms (1-based, inclusive)")
+        atoms_fr = ttk.LabelFrame(self, text="Atoms (ranges, 1-based)")
         atoms_fr.pack(fill=tk.X, **pad)
-        ttk.Label(atoms_fr, text="from").pack(side=tk.LEFT, padx=(8, 4))
-        self.from_var = tk.StringVar(value="1")
-        ttk.Entry(atoms_fr, width=8, textvariable=self.from_var).pack(side=tk.LEFT)
-        ttk.Label(atoms_fr, text="to").pack(side=tk.LEFT, padx=(12, 4))
-        self.to_var = tk.StringVar(value="1")
-        ttk.Entry(atoms_fr, width=8, textvariable=self.to_var).pack(side=tk.LEFT)
+        ttk.Label(atoms_fr, text="Selection (e.g., 1-10,13-22)").pack(side=tk.LEFT, padx=(8, 4))
+        self.sel_var = tk.StringVar(value="1-1")
+        ttk.Entry(atoms_fr, width=28, textvariable=self.sel_var).pack(side=tk.LEFT)
         self.natom_lbl = ttk.Label(atoms_fr, text="")
         self.natom_lbl.pack(side=tk.LEFT, padx=12)
 
@@ -327,13 +389,37 @@ class DBandApp(tk.Tk):
             messagebox.showerror("Parse error", str(e))
             self._set_status("Failed to load DOSCAR.")
 
-    def _parse_range(self) -> Optional[Tuple[int, int]]:
+    def _parse_selection(self) -> Optional[List[int]]:
+        text = self.sel_var.get().strip()
+        if not text:
+            messagebox.showwarning("Invalid atoms", "Please enter a selection like 1-10,13-22.")
+            return None
+        if self._dos is None:
+            messagebox.showwarning("No data", "Load a DOSCAR first.")
+            return None
         try:
-            n1 = int(self.from_var.get())
-            n2 = int(self.to_var.get())
-            return n1, n2
+            indices: List[int] = []
+            parts = [p.strip() for p in text.split(',') if p.strip()]
+            for p in parts:
+                if '-' in p:
+                    a, b = p.split('-', 1)
+                    n1 = int(a)
+                    n2 = int(b)
+                    if n1 > n2:
+                        n1, n2 = n2, n1
+                    indices.extend(list(range(n1, n2 + 1)))
+                else:
+                    indices.append(int(p))
+            # Deduplicate and validate range
+            uniq = sorted(set(indices))
+            if uniq[0] < 1 or uniq[-1] > self._dos.natom:
+                raise ValueError
+            return uniq
         except Exception:
-            messagebox.showwarning("Invalid atoms", "Please enter valid integers for 'from' and 'to'.")
+            messagebox.showwarning(
+                "Invalid atoms",
+                "Enter comma-separated indices or ranges, e.g., 1-10,13-22",
+            )
             return None
 
     @staticmethod
@@ -346,12 +432,12 @@ class DBandApp(tk.Tk):
         if self._dos is None:
             messagebox.showwarning("No data", "Please load a DOSCAR first.")
             return
-        rng = self._parse_range()
-        if not rng:
+        indices = self._parse_selection()
+        if not indices:
             return
         try:
             self._set_status("Computing d-band centers...")
-            momu, momd, effective, hn_center, fup, fdn = compute_d_band_centers(self._dos, rng)
+            momu, momd, effective, hn_center, fup, fdn = compute_d_band_centers_for_indices(self._dos, indices)
             self.momu_var.set(self._fmt(momu))
             self.momd_var.set(self._fmt(momd))
             self.eff_var.set(self._fmt(effective))
